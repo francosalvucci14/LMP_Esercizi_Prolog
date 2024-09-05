@@ -21,11 +21,11 @@ A-*-> BC -*-> aC -*->ad SI*/
     'B'(SDR,R_SDR_B), % R_SDR_B = R_SDR da B
     'C'(R_SDR_B,R_SDR).*/
 
-'A' --> 'B', 'C', 'D'. % Serve per scrive in maniera più compatta
+'A' --> 'B', 'C'. % Serve per scrive in maniera più compatta
 /*Genera 'A'(A, B) :-
     'B'(A, C),
     'C'(C, D),
-    'D'(D, B).*/
+    'D'(D, B). Ho tolto A --> D*/
 
 'C' --> 'D', 'E'.
 /*'C'(SDR,R_SDR):-

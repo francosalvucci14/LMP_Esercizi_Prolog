@@ -1,3 +1,6 @@
+:- dynamic ingredienti_in_dispensa/1.
+:- dynamic ingredienti_in_frigorifero/1.
+
 % Definizione degli ingredienti disponibili in dispensa e frigorifero
 ingredienti_in_dispensa([carne, pasta, pomodoro, cipolla, aglio, olio, sale, pepe]).
 ingredienti_in_frigorifero([pollo, verdure, latte, uova, formaggio]).
@@ -17,7 +20,9 @@ piatto_preparabile(Piatto, IngredientiNecessari) :-
     length(NuovaDispensa, DispensaRimanente),
     length(NuovoFrigorifero, FrigoriferoRimanente),
     DispensaRimanente >= 0,
-    FrigoriferoRimanente >= 0.
+    FrigoriferoRimanente >= 0,
+    %write("Dispensa rimanente:"),write(NuovaDispensa),nl,
+    %write("Frigo rimanente:"),write(NuovoFrigorifero),nl.
 
 % Predicato per suggerire un piatto per oggi
 piatto_per_Oggi(TempoMax, NumPersone, NomePiatto, IngredientiConQuantita) :-
@@ -25,8 +30,10 @@ piatto_per_Oggi(TempoMax, NumPersone, NomePiatto, IngredientiConQuantita) :-
     TempoPreparazione =< TempoMax,
     piatto_preparabile(NomePiatto, IngredientiNecessari),
     length(IngredientiNecessari, NumIngredienti),
-    IngredientiConQuantita = IngredientiNecessari,
-    NumPersone > 0.
+    IngredientiNecessari = IngredientiConQuantita,
+    NumPersone > 0,
+    write("Ho preparato: "),write(NomePiatto),nl.
+    
 
 % Predicato per segnalare la preparazione di un piatto e rimuovere gli ingredienti
 ho_preparato(NomePiatto, Ingredienti) :-
@@ -38,5 +45,5 @@ ho_preparato(NomePiatto, Ingredienti) :-
     subtract(Frigorifero, Ingredienti, NuovoFrigorifero),
     assertz(ingredienti_in_dispensa(NuovaDispensa)),
     assertz(ingredienti_in_frigorifero(NuovoFrigorifero)).
-    
+
 % Inserire _ al posto delle variabili che danno l'errore Singleton per farlo sparire
