@@ -1,0 +1,23 @@
+haStessaStruttura((Predicato1,ParteDX1),(Predicato2,ParteDX2)):-
+    % Scompongo i predicati usando =..
+    Predicato1 =.. [_|ArgomentiSX1],
+    Predicato2 =.. [_|ArgomentiSX2],
+    % Controllo che i predicati abbiano lo stesso numero di argomenti
+    length(ArgomentiSX1, N1),
+    length(ArgomentiSX2, N2),
+    N1 =:= N2,
+    % Controllo che le parti destre abbiano lo stesso numero di componenti
+    length(ParteDX1, LenPA1),
+    length(ParteDX2, LenPA2),
+    LenPA1 =:= LenPA2,
+    verificaStrutturaPDX(ParteDX1,ParteDX2).
+
+verificaStrutturaPDX([],[]). % caso base, entrambe le liste sono vuote
+%caso ricorsivo
+verificaStrutturaPDX([Comp1|Restante1],[Comp2|Restante2]):-
+    Comp1 =.. [_|ArgomentiComp1],
+    Comp2 =.. [_|ArgomentiComp2],
+    length(ArgomentiComp1, LenAC1),
+    length(ArgomentiComp2, LenAC2),
+    LenAC2 =:= LenAC1,
+    verificaStrutturaPDX(Restante1,Restante2).
